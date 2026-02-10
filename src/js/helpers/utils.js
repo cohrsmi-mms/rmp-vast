@@ -280,17 +280,17 @@ export default class Utils {
     }
   }
 
-  createApiEvent(event) {
+  createApiEvent(event, data) {
     if (Array.isArray(event)) {
       event.forEach(currentEvent => {
         if (currentEvent) {
           Logger.print(this.#rmpVast.debugRawConsoleLogs, `API EVENT - ${event}`);
-          this.#rmpVast.dispatch(currentEvent);
+          this.#rmpVast.dispatch(currentEvent, data);
         }
       });
     } else if (event) {
       Logger.print(this.#rmpVast.debugRawConsoleLogs, `API EVENT - ${event}`);
-      this.#rmpVast.dispatch(event);
+      this.#rmpVast.dispatch(event, data);
     }
   }
 
