@@ -74,12 +74,12 @@ export default class Tracking {
     // send ping for each valid tracker
     if (trackers.length > 0) {
       trackers.forEach(element => {
-        this.pingURI(element.url);
+        this.pingURI(element.url, event);
       });
     }
   }
 
-  #ping(url) {
+  #ping(url, event) {
     // we expect an image format for the tracker (generally a 1px GIF/PNG/JPG/AVIF) or JavaScript as 
     // those are the most common format in the industry 
     // other format may produce errors and the related tracker may not be requested properly
@@ -96,8 +96,14 @@ export default class Tracking {
     } else {
       FW.ajax(url, this.#rmpVast.params.ajaxTimeout, false, 'GET').
         then(() => {
+          if (event && event === 'complete') {
+            this.#rmpVast.rmpVastUtils.createApiEvent('adtrackingcomplete');
+          }
           Logger.print(this.#rmpVast.debugRawConsoleLogs, `VAST tracker successfully loaded ${url}`);
         }).catch(error => {
+          if (event && event === 'complete') {
+            this.#rmpVast.rmpVastUtils.createApiEvent('adtrackingcomplete');
+          }
           console.warn(error);
         });
     }
@@ -448,9 +454,9 @@ export default class Tracking {
     return finalString;
   }
 
-  pingURI(url) {
+  pingURI(url, event) {
     const trackingUrl = this.replaceMacros(url, true);
-    this.#ping(trackingUrl);
+    this.#ping(trackingUrl, event);
   }
 
   error(errorCode) {
