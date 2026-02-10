@@ -220,6 +220,7 @@ export default class Utils {
       ajaxTimeout: 8000,
       creativeLoadTimeout: 8000,
       ajaxWithCredentials: false,
+      fetchOptions: {},
       maxNumRedirects: 4,
       labels: {
         skipMessage: 'Skip ad',

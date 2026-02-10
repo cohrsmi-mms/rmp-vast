@@ -586,6 +586,7 @@ export default class RmpVast {
       const options = {
         timeout: this.params.ajaxTimeout,
         withCredentials: this.params.ajaxWithCredentials,
+        fetchOptions: this.params.fetchOptions,
         wrapperLimit: this.params.maxNumRedirects,
         resolveAll: false,
         allowMultipleAds: true
