@@ -13,7 +13,7 @@ export default class Utils {
   }
 
   // attach fullscreen states
-  // this assumes we have a polyfill for fullscreenchange event 
+  // this assumes we have a polyfill for fullscreenchange event
   // see app/js/app.js
   // we need this to handle VAST fullscreen events
   #onFullscreenchange(event) {
@@ -173,7 +173,7 @@ export default class Utils {
       description: 'SIMID error: SPEC_NOT_FOLLOWED_ON_MESSAGES'
     }];
 
-    // Indicates that the error was encountered after the ad loaded, during ad play. 
+    // Indicates that the error was encountered after the ad loaded, during ad play.
     // Possible causes: ad assets could not be loaded, etc.
     const playErrorsList = [
       201, 204, 205,
@@ -184,7 +184,7 @@ export default class Utils {
       1002
     ];
 
-    // Indicates that the error was encountered when the ad was being loaded. 
+    // Indicates that the error was encountered when the ad was being loaded.
     // Possible causes: there was no response from the ad server, malformed ad response was returned ...
     // 300, 301, 302, 303, 304 Wrapper errors are managed in ast-client-js
     const loadErrorsList = [
@@ -220,6 +220,7 @@ export default class Utils {
       ajaxTimeout: 8000,
       creativeLoadTimeout: 8000,
       ajaxWithCredentials: false,
+      fetchOptions: {},
       maxNumRedirects: 4,
       labels: {
         skipMessage: 'Skip ad',
@@ -308,7 +309,7 @@ export default class Utils {
     if (targetPlayer) {
       const playPromise = targetPlayer.play();
       // most modern browsers support play as a Promise
-      // this lets us handle autoplay rejection 
+      // this lets us handle autoplay rejection
       // https://developers.google.com/web/updates/2016/03/play-returns-promise
       if (playPromise !== undefined) {
         const isLinear = this.#rmpVast.creative.isLinear;
@@ -347,7 +348,7 @@ export default class Utils {
     // if we have native fullscreen support we handle fullscreen events
     if (Environment.hasNativeFullscreenSupport) {
       this.#onFullscreenchangeFn = this.#onFullscreenchange.bind(this);
-      // for iOS 
+      // for iOS
       if (Environment.isIos[0]) {
         if (this.#rmpVast.currentContentPlayer) {
           this.#rmpVast.currentContentPlayer.addEventListener('webkitbeginfullscreen', this.#onFullscreenchangeFn);
