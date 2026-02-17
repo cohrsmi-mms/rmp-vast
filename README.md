@@ -65,6 +65,7 @@ You must use rmp-vast in a well-formed HTML document. This means a web-page with
 Do NOT rename CSS classes or alter this HTML layout. The HTML5 video tag used for content must use the src property on the HTML5 video (e.g. do not use &lt;source&gt; tag).
 
 - We need to explicitly set the size of div.rmp-container element, for example with CSS we could add to our page:
+
 ```html
 <style>
   .rmp-container {
@@ -85,6 +86,9 @@ const id = "vast-player";
 const params = {
   ajaxTimeout: 5000,
   maxNumRedirects: 10,
+  fetchOptions: {
+    headers: { "x-api-key": "1234" },
+  },
 };
 // create RmpVast instance
 const rmpVast = new RmpVast(id, params);
@@ -103,6 +107,7 @@ A complete implementation example is provided in app/index.html. You should look
 This example can be found live at https://www.radiantmediaplayer.com/rmp-vast/app/.
 
 Alternatively, you may also create a RmpVast instance while passing a reference to the player container. This can come in handy for some web frameworks. Note that the element must be an instanceof HTMLElement.
+
 ```javascript
 // We already have a reference to the player container (e.g. element with "rmp-container" class)
 const element = this.element;
@@ -213,6 +218,7 @@ Once rmp-vast is loaded on your page you can create a new rmp-vast instance as f
   - `params.ajaxTimeout: Number` timeout in ms for an AJAX request to load a VAST tag from the ad server. Default 5000.
   - `params.creativeLoadTimeout: Number` timeout in ms to load linear media creative from the server. Default 8000.
   - `params.ajaxWithCredentials: Boolean` AJAX request to load VAST tag from ad server should or should not be made with credentials. Default: false.
+  - `params.fetchOptions: Object` Additional options to pass to the fetch request, like headers, cache, etc... Default: {}.
   - `params.maxNumRedirects: Number` the number of VAST wrappers the player should follow before triggering an error. Default: 4. Capped at 30 to avoid infinite wrapper loops.
   - `params.labels: Object` labels used to display information to the viewer.
   - `params.labels.skipMessage: String` skip message. Default: 'Skip ad'.

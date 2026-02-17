@@ -126,7 +126,7 @@
   width: 65%;
   position: absolute;
   left: 5%;
-  color: #FFF;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -174,7 +174,7 @@
   bottom: 0;
 }
 
-.rmp-ad-non-linear-close { 
+.rmp-ad-non-linear-close {
   right: 0;
   top: 0;
   position: absolute;
@@ -195,8 +195,9 @@
   position: absolute;
   right: 8px;
   top: 8px;
-  font-size: 18px;
-  width: 112px;
+  padding: 0 4px;
+  font-size: 16px;
+  width: auto;
   height: 34px;
   text-decoration: none;
   text-align: center;

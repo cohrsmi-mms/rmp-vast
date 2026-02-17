@@ -237,6 +237,7 @@ export default class Utils {
         viewMode: 'normal',
         desiredBitrate: 500
       },
+      fetchOptions: {},
       useHlsJS: true,
       debugHlsJS: false,
       debugRawConsoleLogs: false,
