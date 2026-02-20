@@ -1,5 +1,5 @@
 export default class FW {
-    static "__#1@#getStyleAttributeData"(element: any, style: any): number;
+    static "__#private@#getStyleAttributeData"(element: any, style: any): number;
     static createSyntheticEvent(eventName: any, element: any): void;
     static setStyle(element: any, styleObject: any): void;
     static getWidth(element: any): any;
