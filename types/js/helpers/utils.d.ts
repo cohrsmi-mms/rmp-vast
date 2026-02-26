@@ -1,7 +1,7 @@
 export default class Utils {
     constructor(rmpVast: any);
     filterParams(inputParams: any): void;
-    createApiEvent(event: any): void;
+    createApiEvent(event: any, data: any): void;
     playPromise(whichPlayer: any, firstPlayerPlayRequest: any): void;
     destroyFullscreen(): void;
     handleFullscreen(): void;

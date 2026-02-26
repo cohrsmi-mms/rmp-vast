@@ -287,6 +287,7 @@ export default class RmpVast {
         });
       });
     });
+    this.rmpVastUtils.createApiEvent('adtrackingeventsloaded', keys);
   }
 
   /** 
