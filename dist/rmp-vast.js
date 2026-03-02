@@ -8131,7 +8131,7 @@ class Utils {
       omidAutoplay: false,
       macros: new Map(),
       partnerName: 'rmp-vast',
-      partnerVersion: "17.1.0"
+      partnerVersion: "17.2.0"
     };
     _classPrivateFieldGet(_rmpVast, this).params = defaultParams;
     if (inputParams && typeof inputParams === 'object') {
@@ -8160,17 +8160,17 @@ class Utils {
       });
     }
   }
-  createApiEvent(event) {
+  createApiEvent(event, data) {
     if (Array.isArray(event)) {
       event.forEach(currentEvent => {
         if (currentEvent) {
           Logger.print(_classPrivateFieldGet(_rmpVast, this).debugRawConsoleLogs, `API EVENT - ${event}`);
-          _classPrivateFieldGet(_rmpVast, this).dispatch(currentEvent);
+          _classPrivateFieldGet(_rmpVast, this).dispatch(currentEvent, data);
         }
       });
     } else if (event) {
       Logger.print(_classPrivateFieldGet(_rmpVast, this).debugRawConsoleLogs, `API EVENT - ${event}`);
-      _classPrivateFieldGet(_rmpVast, this).dispatch(event);
+      _classPrivateFieldGet(_rmpVast, this).dispatch(event, data);
     }
   }
   playPromise(whichPlayer, firstPlayerPlayRequest) {
@@ -8679,9 +8679,9 @@ class Tracking {
     }
     return finalString;
   }
-  pingURI(url) {
+  pingURI(url, event) {
     const trackingUrl = this.replaceMacros(url, true);
-    tracking_assertClassBrand(_Tracking_brand, this, _ping).call(this, trackingUrl);
+    tracking_assertClassBrand(_Tracking_brand, this, _ping).call(this, trackingUrl, event);
   }
   error(errorCode) {
     // for each Error tag within an InLine or chain of Wrapper ping error URL
@@ -8809,11 +8809,11 @@ function _dispatch(event) {
   // send ping for each valid tracker
   if (trackers.length > 0) {
     trackers.forEach(element => {
-      this.pingURI(element.url);
+      this.pingURI(element.url, event);
     });
   }
 }
-function _ping(url) {
+function _ping(url, event) {
   // we expect an image format for the tracker (generally a 1px GIF/PNG/JPG/AVIF) or JavaScript as 
   // those are the most common format in the industry 
   // other format may produce errors and the related tracker may not be requested properly
@@ -8829,8 +8829,14 @@ function _ping(url) {
     }
   } else {
     FW.ajax(url, tracking_classPrivateFieldGet(tracking_rmpVast, this).params.ajaxTimeout, false, 'GET').then(() => {
+      if (event && event === 'complete') {
+        tracking_classPrivateFieldGet(tracking_rmpVast, this).rmpVastUtils.createApiEvent('adtrackingcomplete');
+      }
       Logger.print(tracking_classPrivateFieldGet(tracking_rmpVast, this).debugRawConsoleLogs, `VAST tracker successfully loaded ${url}`);
     }).catch(error => {
+      if (event && event === 'complete') {
+        tracking_classPrivateFieldGet(tracking_rmpVast, this).rmpVastUtils.createApiEvent('adtrackingcomplete');
+      }
       console.warn(error);
     });
   }
@@ -13803,6 +13809,7 @@ function _addTrackingEvents(trackingEvents) {
       });
     });
   });
+  this.rmpVastUtils.createApiEvent('adtrackingeventsloaded', keys);
 }
 /** 
  * @private

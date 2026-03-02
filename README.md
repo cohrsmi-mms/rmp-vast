@@ -344,6 +344,8 @@ Available events are:
 - `aderror`
 - `addestroyed`
 - `adpodcompleted`
+- `adtrackingcomplete`
+- `adtrackingeventsloaded` (return all tracking events specified in the VAST response after it has been parsed)
 
 The `adinitialplayrequestfailed` event tells if the ad (or content in case of non-linear creatives) player was able to play on first attempt. Typically this event will fire when autoplay is requested but blocked by an interference engine (macOS Safari 11+, Chrome 66+, browser extensions ...). If the initial play request was a success, the `adinitialplayrequestsucceeded` event will fire.
 

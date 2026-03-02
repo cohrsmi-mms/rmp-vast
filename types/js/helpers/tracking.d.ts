@@ -1,7 +1,7 @@
 export default class Tracking {
     constructor(rmpVast: any);
     replaceMacros(url: any, trackingPixels: any): any;
-    pingURI(url: any): void;
+    pingURI(url: any, event: any): void;
     error(errorCode: any): void;
     reset(): void;
     dispatchTrackingAndApiEvent(apiEvent: any): void;
